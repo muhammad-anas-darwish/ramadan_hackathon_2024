@@ -13,7 +13,7 @@ const submit = () => {
       email: email.value,
       username: username.value,
       password: password.value,
-      repeatPassword: email.value,
+      repeatPassword: repeatPassword.value,
     })
     .then((res) => {
       console.log(res);
