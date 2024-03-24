@@ -3,6 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import ToolsView from '../views/ToolsView.vue'
+import GovernoratesCreateView from '../views/GovernoratesCreateView.vue'
+import CountriesCreateView from '../views/CountriesCreateView.vue'
+import CountriesView from '../views/CountriesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +29,21 @@ const router = createRouter({
       path: '/tools',
       name: 'Tools',
       component: ToolsView
+    },
+    {
+      path: '/governorates/create',
+      name: 'Governorates.Create',
+      component: GovernoratesCreateView
+    },
+    {
+      path: '/countries/create',
+      name: 'Countries.Create',
+      component: CountriesCreateView
+    },
+    {
+      path: '/countries',
+      name: 'Countries.all',
+      component: CountriesView
     },
   ]
 })
