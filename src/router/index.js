@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import ToolsView from '../views/ToolsView.vue'
+import ToolsCreateView from '../views/ToolsCreateView.vue'
 // import GovernoratesView from '../views/GovernoratesView.vue'
 // import GovernoratesCreateView from '../views/GovernoratesCreateView.vue'
 // import CountriesView from '../views/CountriesView.vue'
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: HomeView
+      component: ToolsView
     },
     {
       path: '/register',
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/tools',
       name: 'Tools',
       component: ToolsView
+    },
+    {
+      path: '/tools/create',
+      name: 'Tools.Create',
+      component: ToolsCreateView
     },
     // {
     //   path: '/governorates',

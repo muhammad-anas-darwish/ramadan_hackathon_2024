@@ -88,10 +88,15 @@ const submitFilter = () => {
 <template>
   <article>
     <h1 class="text-gray-200 text-3xl mx-auto w-fit font-medium mb-6">Tools</h1>
-
+    
     <!-- Toggle filter popup -->
     <div class="w-full flex justify-end pr-8 mb-4">
-      <button @click="toggleFilterPopup" class="block focus:ring-4 focus:outline-none rounded-full p-2.5 text-center bg-gray-400 hover:bg-gray-500 focus:ring-gray-600" type="button">
+      <button class="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center text-gray-300 bg-gray-500 hover:bg-gray-600 focus:ring-gray-700 mr-4">
+        <RouterLink :to="{ name: 'Tools.Create' }">
+          Add new tool
+        </RouterLink>
+      </button>
+      <button @click="toggleFilterPopup" class="block focus:ring-4 focus:outline-none rounded-full p-2.5 text-center bg-gray-500 hover:bg-gray-600 focus:ring-gray-700" type="button">
         <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
