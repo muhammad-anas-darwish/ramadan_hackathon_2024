@@ -144,7 +144,8 @@ const submitFilter = () => {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 p-3 w-full">
       <div v-for="card in cardsData" :key="card.id" class="w-full border rounded-lg shadow bg-gray-800 border-gray-700">
         <a href="#">
-          <img class="p-4 rounded-t-lg" :src="card.image" alt="product image" />
+          <!-- <img class="p-4 rounded-t-lg" :src="card.image ?? '@/assets/images/hat.jpg'" alt="product image" /> -->
+          <img class="p-4 rounded-t-lg" src="@/assets/hat.jpg" alt="product image" />
         </a>
         <div class="px-5 pb-5">
           <a href="#">
