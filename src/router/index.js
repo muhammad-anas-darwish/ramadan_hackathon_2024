@@ -7,12 +7,7 @@ import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ToolsCreateView from '../views/ToolsCreateView.vue'
 import ProfileView from '../views/ProfileView.vue'
-// import GovernoratesView from '../views/GovernoratesView.vue'
-// import GovernoratesCreateView from '../views/GovernoratesCreateView.vue'
-// import CountriesView from '../views/CountriesView.vue'
-// import CountriesCreateView from '../views/CountriesCreateView.vue'
-// import PlacesView from '../views/PlacesView.vue'
-// import PlacesCreateView from '../views/PlacesCreateView.vue'
+import NotFound from '../components/NotFound.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,36 +52,11 @@ const router = createRouter({
       name: 'Profile',
       component: ProfileView
     },
-    // {
-    //   path: '/governorates',
-    //   name: 'Governorates.All',
-    //   component: GovernoratesView
-    // },
-    // {
-    //   path: '/governorates/create',
-    //   name: 'Governorates.Create',
-    //   component: GovernoratesCreateView
-    // },
-    // {
-    //   path: '/countries',
-    //   name: 'Countries.All',
-    //   component: CountriesView
-    // },
-    // {
-    //   path: '/countries/create',
-    //   name: 'Countries.Create',
-    //   component: CountriesCreateView
-    // },
-    // {
-    //   path: '/places',
-    //   name: 'Places.All',
-    //   component: PlacesView
-    // },
-    // {
-    //   path: '/places/create',
-    //   name: 'Places.Create',
-    //   component: PlacesCreateView
-    // },
+    {
+      // path: "/:notFound",
+      path: "/:pathMatch(.*)*",
+      component: NotFound,
+    },
   ]
 })
 

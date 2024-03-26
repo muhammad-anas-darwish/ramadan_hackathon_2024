@@ -22,7 +22,11 @@ onMounted(() => {
       console.log(res);
     })
     .catch((error) => {
-      console.log(error);
+      if (error.response && error.response.status === 404) {
+        router.push('/404'); 
+      } else {
+        console.log(error);
+      }
     });
 });
 </script>
