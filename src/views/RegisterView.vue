@@ -3,14 +3,14 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const email = ref("");
+const username = ref("");
 const countryCode = ref(1);
 const phoneNumber = ref("");
 const country = ref("");
 const city = ref("");
-const username = ref("");
 const password = ref("");
-const repeatPassword = ref("");
 
+// countries & cities
 const countries = ref([
   {
     country: "الجزائر",
@@ -97,14 +97,9 @@ const countries = ref([
     cities: ["أبين", "عدان", "الضالع", "البيضاء", "الحديدة", "الجوف", "المهرة", "المحويت", "عمران", "ذمار", "حضرموت", "الحجّة", "إب", "لحج", "مأرب", "صعدة", "صنعاء'", "شبوة", "تعز"],
   },
 ]);
-
 const cities = ref([]);
 const changeCountry = () => {
   cities.value = countries.value.find((c) => c.country === country.value).cities;
-};
-const setCountryCode = (code) => {
-  countryCode.value = code;
-  togglePhoneNumbers();
 };
 
 // Load countries & cities
@@ -121,31 +116,49 @@ onMounted(() => {
     });
 });
 
+const errors = ref(0);
+
+// regiseter
 const submit = () => {
   axios
-    .post("/register", {
-      email: email.value,
-      username: username.value,
-      password: password.value,
-      repeatPassword: repeatPassword.value,
+    .get("file:///f%3A/programming/Templates/project_1/Pages/error.json", {
+      userInfo: {
+        email: email.value,
+        username: username.value,
+        phoneNumber: phoneNumber.value,
+        password: password.value,
+      },
+      countryInfo: {
+        country: country.value,
+        city: city.value,
+      },
     })
     .then((res) => {
-      console.log(res);
+      location.replace("/");
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
+// phone number
 function togglePhoneNumbers() {
   showPhoneNumbers.value = !showPhoneNumbers.value;
 }
 const showPhoneNumbers = ref(false);
+const setCountryCode = (code) => {
+  countryCode.value = code;
+  togglePhoneNumbers();
+};
 </script>
 
 <template>
   <article>
     <form @submit.prevent="submit" class="max-w-sm mx-auto">
+
+      <div v-show="errors" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-red-400">
+        <span v-for="error in errors" :key="error">* {{ error }}</span>
+      </div>
       <div class="mb-5">
         <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
         <input v-model="email" type="email" id="email" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" placeholder="name@gmail.com" required />
@@ -206,10 +219,6 @@ const showPhoneNumbers = ref(false);
       <div class="mb-5">
         <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
         <input v-model="password" type="password" id="password" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
-      </div>
-      <div class="mb-5">
-        <label for="repeat-password" class="block mb-2 text-sm font-medium text-white">Repeat password</label>
-        <input v-model="repeatPassword" type="password" id="repeat-password" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
         <RouterLink class="ms-2 text-sm font-medium hover:underline text-blue-500" :to="{ name: 'Login' }">I already have an account</RouterLink>

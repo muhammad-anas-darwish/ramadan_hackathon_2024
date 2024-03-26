@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import ToolsView from '../views/ToolsView.vue'
+import ForgotPasswordView from '../views/ForgotPasswordView.vue'
+import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ToolsCreateView from '../views/ToolsCreateView.vue'
 // import GovernoratesView from '../views/GovernoratesView.vue'
 // import GovernoratesCreateView from '../views/GovernoratesCreateView.vue'
@@ -28,6 +30,16 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: LoginView
+    },
+    {
+      path: '/forgot-password',
+      name: 'ForgotPassword',
+      component: ForgotPasswordView
+    },
+    {
+      path: '/reset-password/:id',
+      name: 'ResetPassword',
+      component: ResetPasswordView
     },
     {
       path: '/tools',
