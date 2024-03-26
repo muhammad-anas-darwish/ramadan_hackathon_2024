@@ -6,6 +6,7 @@ import ToolsView from '../views/ToolsView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ToolsCreateView from '../views/ToolsCreateView.vue'
+import ProfileView from '../views/ProfileView.vue'
 // import GovernoratesView from '../views/GovernoratesView.vue'
 // import GovernoratesCreateView from '../views/GovernoratesCreateView.vue'
 // import CountriesView from '../views/CountriesView.vue'
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/tools/create',
       name: 'Tools.Create',
       component: ToolsCreateView
+    },
+    {
+      path: '/profile/:id',
+      name: 'Profile',
+      component: ProfileView
     },
     // {
     //   path: '/governorates',

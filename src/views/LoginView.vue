@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { RouterLink } from "vue-router";
+import router from '@/router/index.js';
 
 const email = ref("");
 const password = ref("");
@@ -17,7 +18,7 @@ const submit = () => {
     .then((res) => {
       document.cookie = `Authorization=${res.data['accessToken']}`;
 
-      location.replace("/");
+      router.push({ name: 'Home'});
     })
     .catch((error) => {
     console.log(error);
