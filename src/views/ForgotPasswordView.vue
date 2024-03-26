@@ -6,17 +6,24 @@ import { RouterLink } from "vue-router";
 const email = ref("");
 
 const messages = ref(0);
+const errors = ref(0);
 
 const submit = () => {
   axios
-    .get("/forgot_pasword", {
+    .post("http://localhost:3000/auth/forget-pass", {
       email: email.value,
     })
     .then((res) => {
       messages.value = ["We send email to you."];
+      errors.value = 0;
     })
     .catch((error) => {
-      console.log(error);
+      let message = error.response['data']['message'];
+      errors.value = message;
+
+      if (typeof message === 'string') {
+        errors.value = [message];
+      }
     });
 };
 </script>
@@ -24,6 +31,9 @@ const submit = () => {
 <template>
   <article>
     <form @submit.prevent="submit" class="max-w-sm mx-auto">
+      <div v-show="errors" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-red-400">
+        <span v-for="error in errors" :key="error">* {{ error }}.</span><br>
+      </div>
       <div v-show="messages" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-green-400">
         <span v-for="message in messages" :key="message">* {{ message }}</span>
       </div>

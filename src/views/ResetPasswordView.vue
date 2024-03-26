@@ -7,16 +7,23 @@ const route = useRoute();
 
 const password = ref("");
 
+const errors = ref(0);
+
 const submit = () => {
   axios
-    .get(`/reset-password/${route.params.id}`, {
-      password: password.value,
+    .post(`http://localhost:3000/auth/reset-pass/${route.params.id}`, {
+      newPassword: password.value,
     })
     .then((res) => {
       location.replace("/login");
     })
     .catch((error) => {
-      console.log(error);
+      let message = error.response['data']['message'];
+      errors.value = message;
+
+      if (typeof message === 'string') {
+        errors.value = [message];
+      }
     });
 };
 </script>
@@ -24,6 +31,9 @@ const submit = () => {
 <template>
   <article>
     <form @submit.prevent="submit" class="max-w-sm mx-auto">
+      <div v-show="errors" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-red-400">
+        <span v-for="error in errors" :key="error">* {{ error }}.</span><br>
+      </div>
       <div class="mb-5">
         <label for="password" class="block mb-2 text-sm font-medium text-white">Set new password</label>
         <input v-model="password" type="password" id="password" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />

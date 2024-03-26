@@ -121,7 +121,7 @@ const errors = ref(0);
 // regiseter
 const submit = () => {
   axios
-    .get("file:///f%3A/programming/Templates/project_1/Pages/error.json", {
+    .post("http://localhost:3000/auth/signup", {
       userInfo: {
         email: email.value,
         username: username.value,
@@ -137,7 +137,14 @@ const submit = () => {
       location.replace("/");
     })
     .catch((error) => {
-      console.log(error);
+      let message = error.response['data']['message'];
+      console.log(message);
+      if (typeof message === 'string') {
+        errors.value = [message];
+      }
+      else {
+        errors.value = message.map(msg => msg.split('.')[1]);
+      }
     });
 };
 
@@ -157,7 +164,7 @@ const setCountryCode = (code) => {
     <form @submit.prevent="submit" class="max-w-sm mx-auto">
 
       <div v-show="errors" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-red-400">
-        <span v-for="error in errors" :key="error">* {{ error }}</span>
+        <span v-for="error in errors" :key="error">* {{ error }}.</span><br>
       </div>
       <div class="mb-5">
         <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
