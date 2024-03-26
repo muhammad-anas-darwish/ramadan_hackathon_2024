@@ -15,9 +15,12 @@ const submit = () => {
       password: password.value,
     })
     .then((res) => {
+      document.cookie = `Authorization=${res.data['accessToken']}`;
+
       location.replace("/");
     })
     .catch((error) => {
+    console.log(error);
       let message = error.response['data']['message'];
       errors.value = message;
 

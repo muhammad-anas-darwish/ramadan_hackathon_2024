@@ -134,6 +134,8 @@ const submit = () => {
       },
     })
     .then((res) => {
+      document.cookie = `Authorization=${res.data['accessToken']}`;
+
       location.replace("/");
     })
     .catch((error) => {
