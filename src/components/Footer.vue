@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-gray-900">
     <div class="flex flex-col sm:flex-row items-center justify-between p-8">
-      <span class="text-sm sm:text-center text-gray-400">© 2024. All Rights Reserved. </span>
+      <span class="text-sm sm:text-center text-gray-400">© 2024. جميع الحقوق محفوظة. </span>
       <div class="flex mt-4 justify-between sm:justify-center sm:mt-0 w-full md:w-fit text-gray-500">
         <a href="#" class="hover:text-white mx-1">
           <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">

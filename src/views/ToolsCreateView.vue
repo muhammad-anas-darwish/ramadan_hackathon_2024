@@ -518,36 +518,36 @@ onMounted(() => {
   <article>
     <form @submit.prevent="submit" class="max-w-sm mx-auto">
       <div class="mb-5">
-        <label for="title" class="block mb-2 text-sm font-medium text-white">Title</label>
+        <label for="title" class="block mb-2 text-sm font-medium text-white">اسم الأداة</label>
         <input v-model="title" type="text" id="title" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
-        <label for="image" class="block mb-2 text-sm font-medium text-white">Upload image</label>
+        <label for="image" class="block mb-2 text-sm font-medium text-white">إضافة صورة</label>
         <input type="file" id="image" class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" @change="handleFileUpload" accept=".jpg, .jpeg, .png" required />
       </div>
       <div class="mb-5">
-        <label for="period" class="block mb-2 text-sm font-medium text-white">Period</label>
+        <label for="period" class="block mb-2 text-sm font-medium text-white">فترة الحجز</label>
         <input v-model="period" type="text" id="period" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
-        <label for="price" class="block mb-2 text-sm font-medium text-white">Price</label>
+        <label for="price" class="block mb-2 text-sm font-medium text-white">السعر</label>
         <input v-model="price" type="text" id="price" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
-        <label for="country" class="block mb-2 text-sm font-medium text-white">Select an option</label>
+        <label for="country" class="block mb-2 text-sm font-medium text-white">إختر عنصر</label>
         <select v-model="country" @change="changeCountry" id="country" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required>
-          <option disabled value="">Choose a country</option>
+          <option disabled value="">حدد دولة</option>
           <option v-for="countryName in countries" :key="countryName['country']" :value="countryName['country']">{{ countryName["country"] }}</option>
         </select>
       </div>
       <div class="mb-5">
-        <label for="city" class="block mb-2 text-sm font-medium text-white">Select an option</label>
+        <label for="city" class="block mb-2 text-sm font-medium text-white">إختر عنصر</label>
         <select :disabled="country == ''" v-model="city" id="city" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required>
-          <option disabled value="">Choose a city</option>
+          <option disabled value="">حدد مدينة</option>
           <option v-for="cityName in cities" :key="cityName" :value="cityName">{{ cityName }}</option>
         </select>
       </div>
-      <button type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">Create</button>
+      <button type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">إضافة</button>
     </form>
   </article>
 </template>
