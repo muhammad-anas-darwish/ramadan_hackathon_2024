@@ -38,6 +38,7 @@ const submitFilter = () => {
 
 // load tools data
 onMounted(() => {
+  // isLoading.value = true;
   axios
     .get(`https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6`)
     .then((res) => {

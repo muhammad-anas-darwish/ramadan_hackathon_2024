@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { isAuthenticate, isGuest } from './authGuard.js';
 import HomeView from '../views/HomeView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
@@ -8,7 +9,8 @@ import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ToolsCreateView from '../views/ToolsCreateView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import NotFound from '../components/NotFound.vue';
+import NotFound from '../components/NotFound.vue'
+import Page401 from '../components/401.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,42 +18,66 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: ToolsView
+      component: ToolsView,
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
     {
       path: '/register',
       name: 'Register',
-      component: RegisterView
+      component: RegisterView,
+      beforeEnter: (to, from, next) => {
+        isGuest(to, from, next);
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: (to, from, next) => {
+        isGuest(to, from, next);
+      }
     },
     {
       path: '/forgot-password',
       name: 'ForgotPassword',
-      component: ForgotPasswordView
+      component: ForgotPasswordView,
+      beforeEnter: (to, from, next) => {
+        isGuest(to, from, next);
+      }
     },
     {
       path: '/reset-password/:id',
       name: 'ResetPassword',
-      component: ResetPasswordView
+      component: ResetPasswordView,
+      beforeEnter: (to, from, next) => {
+        isGuest(to, from, next);
+      }
     },
     {
       path: '/tools',
       name: 'Tools',
-      component: ToolsView
+      component: ToolsView,
+      beforeEnter: (to, from, next) => {
+        isGuest(to, from, next);
+      }
     },
     {
       path: '/tools/create',
       name: 'Tools.Create',
-      component: ToolsCreateView
+      component: ToolsCreateView,
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
     {
       path: '/profile/:id',
       name: 'Profile',
-      component: ProfileView
+      component: ProfileView,
+      beforeEnter: (to, from, next) => {
+        isGuest(to, from, next);
+      }
     },
     {
       // path: "/:notFound",
@@ -59,9 +85,16 @@ const router = createRouter({
       component: NotFound,
     },
     {
+      path: "/401",
+      component: Page401,
+    },
+    {
       path: '/my-tools/',
       name: 'UserTools',
-      component: UserToolsView
+      component: UserToolsView,
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
   ]
 })

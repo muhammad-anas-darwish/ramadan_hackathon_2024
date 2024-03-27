@@ -7,6 +7,8 @@ const price = ref(0.0);
 const image = ref('');
 const country = ref("");
 const city = ref("");
+const quantity = ref(1);
+const description = ref('');
 
 const handleFileUpload = (e) => {
   const file = e.target.files[0];
@@ -22,6 +24,10 @@ const submit = () => {
   const formData = new FormData();
   formData.append('title', title.value);
   formData.append('price', price.value);
+  formData.append('country', country.value);
+  formData.append('city', city.value);
+  formData.append('quantity', quantity.value);
+  formData.append('description', description.value);
 
   // Check if an image file is selected
   if (image.value && image.value.type.includes('image')) {
@@ -520,12 +526,20 @@ onMounted(() => {
         <input v-model="title" type="text" id="title" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
+        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الوصف</label>
+        <textarea v-model="description" id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="اكتب وصف عن الأداة..."></textarea>
+      </div>
+      <div class="mb-5">
         <label for="image" class="block mb-2 text-sm font-medium text-white">إضافة صورة</label>
         <input type="file" id="image" class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" @change="handleFileUpload" accept=".jpg, .jpeg, .png" required />
       </div>
       <div class="mb-5">
         <label for="price" class="block mb-2 text-sm font-medium text-white">السعر</label>
         <input v-model="price" type="text" id="price" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
+      </div>
+      <div class="mb-5">
+        <label for="quantity" class="block mb-2 text-sm font-medium text-white">الكمية</label>
+        <input v-model="quantity" type="text" id="quantity" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
         <label for="country" class="block mb-2 text-sm font-medium text-white">إختر عنصر</label>
@@ -540,7 +554,8 @@ onMounted(() => {
           <option disabled value="">حدد مدينة</option>
           <option v-for="cityName in cities" :key="cityName" :value="cityName">{{ cityName }}</option>
         </select>
-      </div>
+      </div>      
+      
       <button type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">إضافة</button>
     </form>
   </article>

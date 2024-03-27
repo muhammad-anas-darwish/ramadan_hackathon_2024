@@ -16,7 +16,10 @@ const submit = () => {
       password: password.value,
     })
     .then((res) => {
-      document.cookie = `Authorization=${res.data['accessToken']}`;
+      // save token to 7 days
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 7);
+      document.cookie = `Authorization=${res.data['accessToken']}; expires=${expirationDate.toUTCString()}`;
 
       router.push({ name: 'Home'});
     })
