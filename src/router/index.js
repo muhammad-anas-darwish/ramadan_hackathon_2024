@@ -3,6 +3,7 @@ import { isAuthenticate, isGuest } from './authGuard.js';
 import HomeView from '../views/HomeView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
+import LogoutView from '../views/LogoutView.vue'
 import ToolsView from '../views/ToolsView.vue'
 import UserToolsView from '../views/UserToolsView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
@@ -53,6 +54,14 @@ const router = createRouter({
       component: ResetPasswordView,
       beforeEnter: (to, from, next) => {
         isGuest(to, from, next);
+      }
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: LogoutView,
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
       }
     },
     {
