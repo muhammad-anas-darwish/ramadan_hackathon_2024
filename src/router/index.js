@@ -69,7 +69,7 @@ const router = createRouter({
       name: 'Tools',
       component: ToolsView,
       beforeEnter: (to, from, next) => {
-        isGuest(to, from, next);
+        isAuthenticate(to, from, next);
       }
     },
     {
@@ -85,7 +85,7 @@ const router = createRouter({
       name: 'Profile',
       component: ProfileView,
       beforeEnter: (to, from, next) => {
-        isGuest(to, from, next);
+        isAuthenticate(to, from, next);
       }
     },
     {
