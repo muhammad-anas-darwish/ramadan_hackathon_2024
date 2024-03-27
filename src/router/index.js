@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import ToolsView from '../views/ToolsView.vue'
+import UserToolsView from '../views/UserToolsView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ToolsCreateView from '../views/ToolsCreateView.vue'
@@ -56,6 +57,11 @@ const router = createRouter({
       // path: "/:notFound",
       path: "/:pathMatch(.*)*",
       component: NotFound,
+    },
+    {
+      path: '/my-tools/',
+      name: 'UserTools',
+      component: UserToolsView
     },
   ]
 })

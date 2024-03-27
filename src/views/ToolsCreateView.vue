@@ -3,7 +3,6 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const title = ref("");
-const period = ref("");
 const price = ref(0.0);
 const image = ref('');
 const country = ref("");
@@ -22,7 +21,6 @@ const handleFileUpload = (e) => {
 const submit = () => {
   const formData = new FormData();
   formData.append('title', title.value);
-  formData.append('period', period.value);
   formData.append('price', price.value);
 
   // Check if an image file is selected
@@ -524,10 +522,6 @@ onMounted(() => {
       <div class="mb-5">
         <label for="image" class="block mb-2 text-sm font-medium text-white">إضافة صورة</label>
         <input type="file" id="image" class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" @change="handleFileUpload" accept=".jpg, .jpeg, .png" required />
-      </div>
-      <div class="mb-5">
-        <label for="period" class="block mb-2 text-sm font-medium text-white">فترة الحجز</label>
-        <input v-model="period" type="text" id="period" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required />
       </div>
       <div class="mb-5">
         <label for="price" class="block mb-2 text-sm font-medium text-white">السعر</label>
