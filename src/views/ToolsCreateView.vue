@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { checkCookie } from '../router/authGuard.js';
+import router from '@/router/index.js';
 
 const title = ref("");
 const price = ref(0.0);
@@ -26,7 +28,7 @@ const submit = () => {
   formData.append('price', price.value);
   formData.append('country', country.value);
   formData.append('city', city.value);
-  formData.append('quantity', quantity.value);
+  formData.append('baseQuantity', quantity.value);
   formData.append('description', description.value);
 
   // Check if an image file is selected
@@ -35,17 +37,19 @@ const submit = () => {
     
     axios
       .post(
-        "/tools/create",
+        "http://localhost:3000/tool",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": checkCookie('Authorization'),
           },
         }
       )
       .then((res) => {
         console.log(res);
-        this.$router.push({name: 'Tools'});
+      router.push({ name: 'Home'});
+        
       })
       .catch((error) => {
         console.log(error);

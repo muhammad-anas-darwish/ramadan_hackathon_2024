@@ -2,7 +2,7 @@
   <nav class="border-gray-200 bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <!-- Logo -->
-      <a href="#" class="text-2xl font-semibold whitespace-nowrap text-white">إحجز .كوم</a>
+      <a href="#" class="text-2xl font-semibold whitespace-nowrap text-white">أجرني.كوم</a>
       <!-- toggle button -->
       <button @click="toggleNavbar" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -17,12 +17,12 @@
               الصفحة الرئيسية
             </RouterLink>
           </li>
-          <li>
+          <li v-if="isAuthorize">
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" to="/">
               الملف الشخصي
             </RouterLink>
           </li>
-          <li>
+          <li v-else>
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'Register'}">
               إنضمام
             </RouterLink>
@@ -36,11 +36,48 @@
 
 <script setup>
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onUpdated, onMounted, watch } from "vue";
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+
+
+import { checkCookie } from '../router/authGuard.js';
 
 function toggleNavbar() {
   showNavbar.value = !showNavbar.value;
 }
 
+const isAuthorize = ref(false); 
+
+onUpdated(() => {
+  if (checkCookie('Authorization')) {
+    isAuthorize.value = true;
+    console.log(isAuthorize.value);
+  }
+  else {
+  isAuthorize.value = false;
+  }
+});
+
+watch(route, async (newQuestion, oldQuestion) => {
+  if (checkCookie('Authorization')) {
+    isAuthorize.value = true;
+    console.log(isAuthorize.value);
+  }
+  else {
+  isAuthorize.value = false;
+  }
+})
+
+onMounted(() => {
+  if (checkCookie('Authorization')) {
+    isAuthorize.value = true;
+    console.log(isAuthorize.value);
+  }
+  else {
+  isAuthorize.value = false;
+  }
+});
 const showNavbar = ref(true);
 </script>

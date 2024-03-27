@@ -1,13 +1,13 @@
 import { ref } from "vue";
 
-function checkCookie(name) {
+export function checkCookie(name) {
 	let cookieArr = document.cookie.split(";");
 	
 	for(let i = 0; i < cookieArr.length; i++) {
 			let cookiePair = cookieArr[i].split("=");
 			
 			if(name == cookiePair[0].trim()) {
-					return true
+					return cookiePair[1].trim();
 			}
 	}
 	
@@ -15,7 +15,7 @@ function checkCookie(name) {
 }
 
 export function isAuthenticate(to, from, next) {
-  if (!checkCookie('anas')) {
+  if (!checkCookie('Authorization')) {
     next({ name: "Register" });
   } else {
     next()
@@ -23,7 +23,7 @@ export function isAuthenticate(to, from, next) {
 }
 
 export function isGuest(to, from, next) {
-  if (checkCookie('anas')) {
+  if (checkCookie('Authorization')) {
     next({ path: "/401" });
   } else {
 		next();
