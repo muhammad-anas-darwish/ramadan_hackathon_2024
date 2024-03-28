@@ -7,6 +7,9 @@ import { checkCookie } from '../router/authGuard.js';
 
 const route = useRoute();
 
+const messages = ref(0);
+const errors = ref(0);
+
 const userId = ref(0);
 const image = ref('');
 const title = ref("");
@@ -17,19 +20,28 @@ const description = ref("");
 const place = ref("");
 
 const submit = () => {
-  // axios
-  //   .get(`/tool/${route.params.id}`)
-  //   .then((res) => {
-      
-  //   })
-  //   .catch((error) => {
-  //     if (error.response && error.response.status === 404) {
-  //       router.push("/404");
-  //     } else {
-  //       console.log(error);
-  //     }
-  //   });
-}
+  axios
+    .post(`/create-transaction/${route.params.id}`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": checkCookie("Authorization"),
+      },
+    })
+    .then((res) => {
+      errors.value = 0;
+      messages.value = ['تم الطلب تأجير المنتج بنجاح.'];
+    })
+    .catch((error) => {
+      messages.value = 0;
+      let message = error.response['data']['message'];
+      if (typeof message === 'string') {
+        errors.value = [message];
+      } else {
+        errors.value = message.map(msg => msg.split('.')[1]);
+      }
+      console.log(error);
+    });
+};
 
 const isLoading = ref(false);
 // load tool data
@@ -77,6 +89,13 @@ onMounted(() => {
     </svg>
   </div>
   <article v-else class="max-w-lg mx-auto">
+    <div v-show="messages" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-green-400">
+      <span v-for="message in messages" :key="message">* {{ message }}.</span><br>
+    </div>
+    <div v-show="errors" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-red-400">
+      <span v-for="error in errors" :key="error">* {{ error }}.</span><br>
+    </div>
+    
     <div class="p-4 mb-2 border rounded-lg shadow border-white-400 text-lg">
       <img class="rounded-lg" :src="image" alt="صورة المنتج" />
     </div>

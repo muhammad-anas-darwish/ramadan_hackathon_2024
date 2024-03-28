@@ -12,6 +12,7 @@ import ToolsCreateView from '../views/ToolsCreateView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ToolView from '../views/ToolView.vue'
 import UserTransactionsView from '../views/UserTransactionsView.vue'
+import TransactionRequestsView from '../views/TransactionRequestsView.vue'
 import NotFound from '../components/NotFound.vue'
 import Page401 from '../components/401.vue'
 
@@ -128,6 +129,14 @@ const router = createRouter({
       path: '/my-transactions/',
       name: 'UserTransactions',
       component: UserTransactionsView,
+      // beforeEnter: (to, from, next) => {
+      //   isAuthenticate(to, from, next);
+      // }
+    },
+    {
+      path: '/transaction-requests',
+      name: 'TransactionRequests',
+      component: TransactionRequestsView,
       // beforeEnter: (to, from, next) => {
       //   isAuthenticate(to, from, next);
       // }
