@@ -3,14 +3,16 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRoute, RouterLink } from "vue-router";
 import router from "@/router/index.js";
+import { checkCookie } from '../router/authGuard.js';
 
 const route = useRoute();
 
-const username = ref("");
 const userId = ref(0);
+const image = ref('');
 const title = ref("");
 const price = ref(0);
-const quantity = ref("");
+const baseQuantity = ref("");
+const usedQuantity = ref("");
 const description = ref("");
 const place = ref("");
 
@@ -34,16 +36,25 @@ const isLoading = ref(false);
 onMounted(() => {
   // isLoading.value = true;
   axios
-    .get(`/tool/${route.params.id}`)
+    .get(`http://localhost:3000/tool/${route.params.id}`,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": checkCookie('Authorization')
+      },
+    })
     .then((res) => {
-      username.value = res.data["username"];
+      console.log(res);
       userId.value = res.data["userId"];
+      image.value = `http://localhost:3000/tool/image/${res.data["image"]}`;
       title.value = res.data["title"];
       price.value = res.data["price"];
-      quantity.value = res.data["baseQuantity"];
+      baseQuantity.value = res.data["baseQuantity"];
+      usedQuantity.value = res.data["usedQuantity"];
       description.value = res.data["description"];
-      place.value = res.data["place"];
+      place.value = `${res.data["place"]['country']}, ${res.data["place"]['city']}`;
       console.log(res);
+
     })
     .catch((error) => {
       if (error.response && error.response.status === 404) {
@@ -67,7 +78,7 @@ onMounted(() => {
   </div>
   <article v-else class="max-w-lg mx-auto">
     <div class="p-4 mb-2 border rounded-lg shadow border-white-400 text-lg">
-      <img class="rounded-lg" src="@/assets/hat.jpg" alt="صورة المنتج" />
+      <img class="rounded-lg" :src="image" alt="صورة المنتج" />
     </div>
     <div class="p-4 text-white-400 text-lg">
       <h3><span class="font-bold">اسم المنتج: </span>{{ title }}</h3>
@@ -76,7 +87,7 @@ onMounted(() => {
       <h3>
         <span class="font-bold">المؤجر: </span>
         <RouterLink class="py-2 px-3 rounded md:p-0 hover:text-blue-500 hover:bg-gray-700 hover:bg-transparent" :to="{ name: 'Profile', params: { id: userId }}">
-          {{ username }}
+          المالك
         </RouterLink>
       </h3>
     </div>
@@ -87,7 +98,7 @@ onMounted(() => {
       <h3><span class="font-bold">السعر: </span>{{ price }}$</h3>
     </div>
     <div class="p-4 text-white-400 text-lg">
-      <h3><span class="font-bold">الكمية المتبقية: </span>{{ quantity }} قطع</h3>
+      <h3><span class="font-bold">الكمية المتبقية: </span>{{ baseQuantity }} قطع</h3>
     </div>
     <div class="p-4 text-white-400 text-lg">
       <h3><span class="font-bold">العنوان: </span>{{ place }}</h3>
