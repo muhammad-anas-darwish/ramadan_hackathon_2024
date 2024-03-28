@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRoute, RouterLink } from "vue-router";
 import router from "@/router/index.js";
+import { checkCookie } from '../router/authGuard.js';
 
 const route = useRoute();
 
@@ -15,18 +16,27 @@ const isLoading = ref(false);
 
 onMounted(() => {
   isLoading.value = true;
-  let url = '/profile';
+  let url = 'http://localhost:3000/user';
   if (route.params.id) {
     url = `${url}/${route.params.id}`;
   } 
+  else {
+    url = `${url}/profile`;
+  }
 
   axios
-    .get(url)
+    .get(url,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": checkCookie('Authorization'),
+      },
+    })
     .then((res) => {
       username.value = res.data["username"];
       email.value = res.data["email"];
       phoneNumber.value = res.data["phoneNumber"];
-      place.value = res.data["place"];
+      place.value = `${res.data["place"]['country']}, ${res.data["place"]['city']}`;
       console.log(res);
     })
     .catch((error) => {
