@@ -13,10 +13,10 @@
       <div :class="{ 'hidden md:block': showNavbar }" class="w-full md:w-auto">
         <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 md:space-x-reverse md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700">
           <li>
-            <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'Home' }"> الصفحة الرئيسية </RouterLink>
+            <RouterLink v-if="isAuthorize" class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'Home' }"> الصفحة الرئيسية </RouterLink>
           </li>
           <li v-if="isAuthorize">
-            <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" to="/"> الملف الشخصي </RouterLink>
+            <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'MyProfile' }"> الملف الشخصي </RouterLink>
           </li>
           <li v-if="isAuthorize">
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'Logout' }"> تسجيل الخروج </RouterLink>

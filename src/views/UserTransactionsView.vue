@@ -1,40 +1,20 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { useRoute, RouterLink } from "vue-router";
-import router from "@/router/index.js";
 
-const route = useRoute();
-
-const username = ref("");
-const email = ref("");
-const phoneNumber = ref("");
-const place = ref("");
-
+const cardsData = ref([]);
 const isLoading = ref(false);
 
+// load tools data
 onMounted(() => {
-  isLoading.value = true;
-  let url = '/profile';
-  if (route.params.id) {
-    url = `${url}/${route.params.id}`;
-  } 
-
+  // isLoading.value = true;
   axios
-    .get(url)
+    .get("https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6")
     .then((res) => {
-      username.value = res.data["username"];
-      email.value = res.data["email"];
-      phoneNumber.value = res.data["phoneNumber"];
-      place.value = res.data["place"];
-      console.log(res);
+      cardsData.value = res.data;
     })
     .catch((error) => {
-      if (error.response && error.response.status === 404) {
-        router.push("/404");
-      } else {
-        console.log(error);
-      }
+      console.log(error);
     })
     .finally(() => {
       isLoading.value = false;
@@ -49,22 +29,29 @@ onMounted(() => {
       <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
     </svg>
   </div>
-  <article v-else class="max-w-sm mx-auto">
-    <div class="p-4 mb-2 text-white-400 text-lg">
-      <h3 class="font-bold">اسم المستخدم</h3>
-      <p class="mr-2">{{ username }}</p>
-    </div>
-    <div class="p-4 mb-2 text-white-400 text-lg">
-      <h3 class="font-bold">البريد الإلكتروني</h3>
-      <p>{{ email }}</p>
-    </div>
-    <div class="p-4 mb-2 text-white-400 text-lg">
-      <h3 class="font-bold">رقم الجوال</h3>
-      <p>{{ phoneNumber }}</p>
-    </div>
-    <div class="p-4 mb-2 text-white-400 text-lg">
-      <h3 class="font-bold">العنوان</h3>
-      <p>{{ place }}</p>
+  <article v-else>
+    <h1 class="text-gray-200 text-3xl mx-auto w-fit font-medium mb-6">عملياتي</h1>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 p-3 w-full">
+      <div v-for="card in cardsData" :key="card.id" class="w-full border rounded-lg shadow bg-gray-800 border-gray-700">
+        <a href="#">
+          <!-- <img class="p-4 rounded-t-lg" :src="card.image ?? '@/assets/images/hat.jpg'" alt="product image" /> -->
+          <img class="p-4 rounded-t-lg" src="@/assets/hat.jpg" alt="product image" />
+        </a>
+        <div class="px-5 pb-5">
+          <a href="#">
+            <h5 class="text-xl font-semibold tracking-tight text-gray-200">{{ card.title }}</h5>
+          </a>
+          <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">{{ card.user.username }}</div>
+          <div class="flex items-center justify-between">
+            <span class="text-3xl font-bold text-white">{{ card.price }}$</span>
+            <a href="#" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">استعارة</a>
+          </div>
+        </div>
+      </div>
     </div>
   </article>
 </template>
+
+<style></style>

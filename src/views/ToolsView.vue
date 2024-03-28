@@ -19,7 +19,7 @@ const toggleFilterPopup = () => {
 };
 const submitFilter = () => {
   axios
-    .get("https://httpbin.org/get", {
+    .get("https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6", {
       params: {
         name: name.value,
         place: place.value,

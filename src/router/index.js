@@ -10,6 +10,8 @@ import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
 import ToolsCreateView from '../views/ToolsCreateView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import ToolView from '../views/ToolView.vue'
+import UserTransactionsView from '../views/UserTransactionsView.vue'
 import NotFound from '../components/NotFound.vue'
 import Page401 from '../components/401.vue'
 
@@ -84,9 +86,26 @@ const router = createRouter({
       path: '/profile/:id',
       name: 'Profile',
       component: ProfileView,
+      // beforeEnter: (to, from, next) => {
+      //   isAuthenticate(to, from, next);
+      // }
+    },
+    {
+      path: '/profile',
+      name: 'MyProfile',
+      component: ProfileView,
       beforeEnter: (to, from, next) => {
         isAuthenticate(to, from, next);
       }
+    },
+    {
+      path: '/tool/:id',
+      name: 'Tool',
+      component: ToolView,
+      props: true,
+      // beforeEnter: (to, from, next) => {
+      //   isAuthenticate(to, from, next);
+      // }
     },
     {
       // path: "/:notFound",
@@ -101,9 +120,17 @@ const router = createRouter({
       path: '/my-tools/',
       name: 'UserTools',
       component: UserToolsView,
-      beforeEnter: (to, from, next) => {
-        isAuthenticate(to, from, next);
-      }
+      // beforeEnter: (to, from, next) => {
+      //   isAuthenticate(to, from, next);
+      // }
+    },
+    {
+      path: '/my-transactions/',
+      name: 'UserTransactions',
+      component: UserTransactionsView,
+      // beforeEnter: (to, from, next) => {
+      //   isAuthenticate(to, from, next);
+      // }
     },
   ]
 })
