@@ -7,13 +7,14 @@ import { useRoute, RouterLink } from "vue-router";
 const cardsData = ref([]);
 const isLoading = ref(false);
 
-
 const messages = ref(0);
 const errors = ref(0);
 
 const acceptRequest = (trasactionId) => {
   axios
-    .get(`/accept-transaction/${trasactionId}`, {
+    .post(`/accept-transaction`, {
+      'trasactionId': trasactionId,
+
       headers: {
         "Content-Type": "multipart/form-data",
         "Authorization": checkCookie("Authorization"),
@@ -37,7 +38,9 @@ const acceptRequest = (trasactionId) => {
 
 const returnItem = (trasactionId) => {
   axios
-    .get(`/return-transaction/${trasactionId}`, {
+    .post(`/return-transaction`, {
+      'trasactionId': trasactionId,
+
       headers: {
         "Content-Type": "multipart/form-data",
         "Authorization": checkCookie("Authorization"),
@@ -61,7 +64,7 @@ const returnItem = (trasactionId) => {
 
 // load tools data
 onMounted(() => {
-  // isLoading.value = true;
+  isLoading.value = true;
   axios
     .get("https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6", {
       headers: {
@@ -107,12 +110,12 @@ onMounted(() => {
             <h5 class="text-xl font-semibold tracking-tight text-gray-200">{{ card.title }}</h5>
           </a>
           <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">
-            <!-- <RouterLink class="py-2 px-3 rounded md:p-0 hover:text-blue-500 hover:bg-gray-700 hover:bg-transparent" :to="{ name: 'Profile', params: { id: userId } }">
+            <RouterLink class="py-2 px-3 rounded md:p-0 hover:text-blue-500 hover:bg-gray-700 hover:bg-transparent" :to="{ name: 'Profile', params: { id: userId } }">
               مقدم الطلب
-            </RouterLink> -->
+            </RouterLink>
           </div>
           <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">
-            متوفر: {{card.baseQuantity}}/{{card.usedQuantity}}
+            متوفر: {{ card.baseQuantity }}/{{ card.usedQuantity }}
           </div>
           <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-white">{{ card.price }}$</span>

@@ -21,7 +21,9 @@ const place = ref("");
 
 const submit = () => {
   axios
-    .post(`/create-transaction/${route.params.id}`, {
+    .post(`/create-transaction`, {
+      'id': route.params.id,
+      
       headers: {
         "Content-Type": "multipart/form-data",
         "Authorization": checkCookie("Authorization"),
@@ -95,7 +97,7 @@ onMounted(() => {
     <div v-show="errors" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-red-400">
       <span v-for="error in errors" :key="error">* {{ error }}.</span><br>
     </div>
-    
+
     <div class="p-4 mb-2 border rounded-lg shadow border-white-400 text-lg">
       <img class="rounded-lg" :src="image" alt="صورة المنتج" />
     </div>
