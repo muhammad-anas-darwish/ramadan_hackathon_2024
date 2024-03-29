@@ -10,7 +10,7 @@ const isLoading = ref(false);
 onMounted(() => {
   // isLoading.value = true;
   axios
-    .get("https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6")
+    .get("http://localhost:3000/transaction")
     .then((res) => {
       cardsData.value = res.data;
     })

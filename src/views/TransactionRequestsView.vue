@@ -12,8 +12,8 @@ const errors = ref(0);
 
 const acceptRequest = (trasactionId) => {
   axios
-    .post(`/accept-transaction`, {
-      'trasactionId': trasactionId,
+    .patch(`http://localhost:3000/transaction/${trasactionId}`, {
+      'accepted': true,
 
       headers: {
         "Content-Type": "multipart/form-data",
@@ -27,6 +27,7 @@ const acceptRequest = (trasactionId) => {
     .catch((error) => {
       messages.value = 0;
       let message = error.response['data']['message'];
+
       if (typeof message === 'string') {
         errors.value = [message];
       } else {
@@ -36,10 +37,10 @@ const acceptRequest = (trasactionId) => {
     });
 }
 
-const returnItem = (trasactionId) => {
+const returnItem = (trasactionId) => { 
   axios
-    .post(`/return-transaction`, {
-      'trasactionId': trasactionId,
+    .patch(`http://localhost:3000/transaction/${trasactionId}`, {
+      'accepted': false,
 
       headers: {
         "Content-Type": "multipart/form-data",
@@ -48,7 +49,7 @@ const returnItem = (trasactionId) => {
     })
     .then((res) => {
       errors.value = 0;
-      messages.value = ['تم إنهاء الأجار بنجاح.'];
+      messages.value = ['تم الإنهاء بنجاح.'];
     })
     .catch((error) => {
       messages.value = 0;
@@ -64,9 +65,9 @@ const returnItem = (trasactionId) => {
 
 // load tools data
 onMounted(() => {
-  isLoading.value = true;
+  // isLoading.value = true;
   axios
-    .get("https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6", {
+    .get("http://localhost:3000/transaction", {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: checkCookie("Authorization"),
@@ -104,23 +105,26 @@ onMounted(() => {
     <!-- Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 p-3 w-full">
       <div v-for="card in cardsData" :key="card.id" class="w-full border rounded-lg shadow bg-gray-800 border-gray-700">
-        <img class="p-4 rounded-t-lg" src="@/assets/hat.jpg" alt="product image" />
+        <img class="p-4 rounded-t-lg" :src="`http://localhost:3000/tool/image/${card.tool.image}`" alt="صورة المنتج" />
         <div class="px-5 pb-5">
           <a href="#">
-            <h5 class="text-xl font-semibold tracking-tight text-gray-200">{{ card.title }}</h5>
+            <h5 class="text-xl font-semibold tracking-tight text-gray-200">{{ card.tool.title }}</h5>
           </a>
           <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">
-            <RouterLink class="py-2 px-3 rounded md:p-0 hover:text-blue-500 hover:bg-gray-700 hover:bg-transparent" :to="{ name: 'Profile', params: { id: userId } }">
+            <RouterLink class="py-2 px-3 rounded md:p-0 hover:text-blue-500 hover:bg-gray-700 hover:bg-transparent" :to="{ name: 'Profile', params: { id: card.loanedId } }">
               مقدم الطلب
             </RouterLink>
           </div>
           <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">
-            متوفر: {{ card.baseQuantity }}/{{ card.usedQuantity }}
+            متوفر: {{ card.tool.baseQuantity }}/{{ card.tool.usedQuantity }}
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-3xl font-bold text-white">{{ card.price }}$</span>
-            <button v-if="card.active" @click="acceptRequest(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">موافقة</button>
-            <button v-else @click="returnItem(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">تم ارجاع المنتج</button>
+            <span class="text-3xl font-bold text-white">{{ card.tool.price }}$</span>
+            <button v-if="card.accepted" @click="returnItem(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">تم ارجاع المنتج</button>
+            <div v-else>
+              <button @click="returnItem(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">رفض</button>
+              <button @click="acceptRequest(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">موافقة</button>
+            </div>
           </div>
         </div>
       </div>
