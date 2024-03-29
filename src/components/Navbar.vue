@@ -19,6 +19,9 @@
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'MyProfile' }"> الملف الشخصي </RouterLink>
           </li>
           <li v-if="isAuthorize">
+            <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'UserTools' }"> أدواتي </RouterLink>
+          </li>
+          <li v-if="isAuthorize">
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'UserTransactions' }"> العمليات </RouterLink>
           </li>
           <li v-if="isAuthorize">
