@@ -18,11 +18,13 @@ const baseQuantity = ref("");
 const usedQuantity = ref("");
 const description = ref("");
 const place = ref("");
+const period = ref(1);
 
 const submit = () => {
   axios
-    .post(`/create-transaction`, {
-      'id': route.params.id,
+    .post(`http://localhost:3000/transaction`, {
+      'toolId': route.params.id,
+      'period': period.value,
       
       headers: {
         "Content-Type": "multipart/form-data",
@@ -81,6 +83,11 @@ onMounted(() => {
       isLoading.value = false;
     });
 });
+
+const showPeriodPopup = ref(false);
+const togglePeriodPopup = () => {
+  showPeriodPopup.value = !showPeriodPopup.value;
+};
 </script>
 
 <template>
@@ -91,6 +98,31 @@ onMounted(() => {
     </svg>
   </div>
   <article v-else class="max-w-lg mx-auto">
+    <div v-show="showPeriodPopup" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full md:inset-0">
+      <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <div class="relative rounded-lg shadow bg-gray-700">
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+            <h3 class="text-xl font-semibold text-white">طلب تأجير</h3>
+            <button @click="togglePeriodPopup" type="button" class="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+            </button>
+          </div>
+          <div class="p-4 md:p-5 space-y-4">
+            <form @submit.prevent="submit" class="max-w-sm mx-auto">
+              <div class="mb-5">
+                <label for="period" class="block mb-2 text-sm font-medium text-white">مدة الحجز</label>
+                <input v-model="period" type="number" id="period" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" />
+              </div>
+
+              <button @click="togglePeriodPopup" type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">تصفية</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div v-show="messages" class="p-4 mb-4 text-sm rounded-lg bg-gray-700 text-green-400">
       <span v-for="message in messages" :key="message">* {{ message }}.</span><br>
     </div>
@@ -125,7 +157,9 @@ onMounted(() => {
       <h3><span class="font-bold">العنوان: </span>{{ place }}</h3>
     </div>
     <div class="p-4 text-white-400 text-lg">
-      <button @click="submit" type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">إستعارة</button>
+      <button @click="togglePeriodPopup" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type="button" required>
+        إستعارة
+      </button>
     </div>
   </article>
 </template>
