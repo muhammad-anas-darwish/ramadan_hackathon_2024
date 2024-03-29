@@ -2,6 +2,8 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { RouterLink } from "vue-router";
+import { checkCookie } from '../router/authGuard.js';
+
 
 const cardsData = ref([]);
 const isLoading = ref(false);
@@ -10,7 +12,13 @@ const isLoading = ref(false);
 onMounted(() => {
   // isLoading.value = true;
   axios
-    .get("https://mocki.io/v1/64b08fdc-50fe-40e9-b8fa-b9115d06f0b6")
+    .get("http://localhost:3000/user/tool", {
+    headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": checkCookie('Authorization'),
+      }
+      }
+    )
     .then((res) => {
       cardsData.value = res.data;
     })
@@ -43,7 +51,7 @@ onMounted(() => {
               {{ card.title }}
             </h5>
           </RouterLink>
-          <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">{{ card.baseQuantity }}/{{ card.usedQuantity }} قطع</div>
+          <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">{{ card.usedQuantity  }}/{{ card.baseQuantity}} القطع المستخدمة</div>
           <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-white">{{ card.price }}$</span>
             <a href="#" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">استعارة</a>
