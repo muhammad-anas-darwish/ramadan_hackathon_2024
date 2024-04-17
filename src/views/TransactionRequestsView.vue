@@ -21,6 +21,7 @@ const acceptRequest = (trasactionId) => {
     })
     .then((res) => {
       errors.value = 0;
+      getTransactions();
       messages.value = ['تمت الموافقة بنجاح.'];
     })
     .catch((error) => {
@@ -47,6 +48,7 @@ const returnItem = (trasactionId) => {
     })
     .then((res) => {
       errors.value = 0;
+      getTransactions();
       messages.value = ['تم الإنهاء بنجاح.'];
     })
     .catch((error) => {
@@ -59,7 +61,8 @@ const returnItem = (trasactionId) => {
       }
       console.log(error);
     });
-  }
+}
+
 const deleteTxn = (trasactionId) => { 
   axios
     .delete(`http://localhost:3000/transaction/${trasactionId}`, {
@@ -84,8 +87,8 @@ const deleteTxn = (trasactionId) => {
 }
 
 // load tools data
-onMounted(() => {
-  // isLoading.value = true;
+const getTransactions = () => {
+  isLoading.value = true;
   axios
     .get("http://localhost:3000/transaction", {
       headers: {
@@ -102,6 +105,10 @@ onMounted(() => {
     .finally(() => {
       isLoading.value = false;
     });
+}
+
+onMounted(() => {
+  getTransactions();
 });
 </script>
 
