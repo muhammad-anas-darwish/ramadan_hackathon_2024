@@ -87,9 +87,9 @@ const router = createRouter({
       path: '/profile/:id',
       name: 'Profile',
       component: ProfileView,
-      // beforeEnter: (to, from, next) => {
-      //   isAuthenticate(to, from, next);
-      // }
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
     {
       path: '/profile',
@@ -104,9 +104,9 @@ const router = createRouter({
       name: 'Tool',
       component: ToolView,
       props: true,
-      // beforeEnter: (to, from, next) => {
-      //   isAuthenticate(to, from, next);
-      // }
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
     {
       // path: "/:notFound",
@@ -121,25 +121,25 @@ const router = createRouter({
       path: '/my-tools/',
       name: 'UserTools',
       component: UserToolsView,
-      // beforeEnter: (to, from, next) => {
-      //   isAuthenticate(to, from, next);
-      // }
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
     {
       path: '/my-transactions/',
       name: 'UserTransactions',
       component: UserTransactionsView,
-      // beforeEnter: (to, from, next) => {
-      //   isAuthenticate(to, from, next);
-      // }
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
     {
       path: '/transaction-requests',
       name: 'TransactionRequests',
       component: TransactionRequestsView,
-      // beforeEnter: (to, from, next) => {
-      //   isAuthenticate(to, from, next);
-      // }
+      beforeEnter: (to, from, next) => {
+        isAuthenticate(to, from, next);
+      }
     },
   ]
 })
