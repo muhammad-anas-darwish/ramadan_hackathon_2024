@@ -16,6 +16,12 @@ const isLoading = ref(false);
 const country = ref("");
 const city = ref("");
 
+const thereAreFilters = ref(false);
+const removeFilters = () => {
+  thereAreFilters.value = 0;
+  submitFilter();
+};
+
 const countries = ref([
   {
     "country": "الجزائر",
@@ -484,6 +490,7 @@ const submitFilter = () => {
     })
     .then((res) => {
       cardsData.value = res["data"];
+      thereAreFilters.value = true;
       console.log(res);
     })
     .catch((error) => {
@@ -527,13 +534,16 @@ onMounted(() => {
 
     <!-- Toggle filter popup -->
     <div class="w-full flex justify-end pl-8 mb-4">
-      <button class="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center text-gray-300 bg-gray-500 hover:bg-gray-600 focus:ring-gray-700 ml-4">
+      <button class="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center text-gray-300 bg-gray-500 hover:bg-gray-600 focus:ring-gray-700 ml-3">
         <RouterLink :to="{ name: 'Tools.Create' }"> إضافة أداة جديدة </RouterLink>
       </button>
       <button @click="toggleFilterPopup" class="block focus:ring-4 focus:outline-none rounded-full p-2.5 text-center bg-gray-500 hover:bg-gray-600 focus:ring-gray-700" type="button">
         <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
+      </button>
+      <button v-show="thereAreFilters" @click="removeFilters" class="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center text-gray-300 bg-gray-500 hover:bg-gray-600 focus:ring-gray-700 mr-3">
+        إزالة الفلاتر
       </button>
     </div>
 
