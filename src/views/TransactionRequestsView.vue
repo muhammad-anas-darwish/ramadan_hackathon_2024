@@ -14,11 +14,10 @@ const acceptRequest = (trasactionId) => {
   axios
     .patch(`http://localhost:3000/transaction/${trasactionId}`, {
       'accepted': true,
-
+      },{
       headers: {
-        "Content-Type": "multipart/form-data",
         "Authorization": checkCookie("Authorization"),
-      },
+      }
     })
     .then((res) => {
       errors.value = 0;
@@ -41,15 +40,36 @@ const returnItem = (trasactionId) => {
   axios
     .patch(`http://localhost:3000/transaction/${trasactionId}`, {
       'accepted': false,
-
+      },{
       headers: {
-        "Content-Type": "multipart/form-data",
         "Authorization": checkCookie("Authorization"),
       },
     })
     .then((res) => {
       errors.value = 0;
       messages.value = ['تم الإنهاء بنجاح.'];
+    })
+    .catch((error) => {
+      messages.value = 0;
+      let message = error.response['data']['message'];
+      if (typeof message === 'string') {
+        errors.value = [message];
+      } else {
+        errors.value = message.map(msg => msg.split('.')[1]);
+      }
+      console.log(error);
+    });
+  }
+const deleteTxn = (trasactionId) => { 
+  axios
+    .delete(`http://localhost:3000/transaction/${trasactionId}`, {
+      headers: {
+        "Authorization": checkCookie("Authorization"),
+      },
+    })
+    .then((res) => {
+      errors.value = 0;
+      messages.value = ['تم حذف العملية'];
     })
     .catch((error) => {
       messages.value = 0;
@@ -120,7 +140,7 @@ onMounted(() => {
           </div>
           <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-white">{{ card.tool.price }}$</span>
-            <button v-if="card.accepted" @click="returnItem(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">تم ارجاع المنتج</button>
+            <button v-if="card.accepted" @click="deleteTxn(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">تم ارجاع المنتج</button>
             <div v-else>
               <button @click="returnItem(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">رفض</button>
               <button @click="acceptRequest(card.id)" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">موافقة</button>

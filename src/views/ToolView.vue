@@ -21,16 +21,13 @@ const place = ref("");
 const period = ref(1);
 
 const submit = () => {
-  axios
-    .post(`http://localhost:3000/transaction`, {
-      'toolId': route.params.id,
-      'period': period.value,
-      
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": checkCookie("Authorization"),
-      },
-    })
+  axios.post('http://localhost:3000/transaction',
+  {
+        "toolId": route.params.id,
+        "period": period.value
+    },{headers:{
+        "Authorization": checkCookie('Authorization'),
+    }} )
     .then((res) => {
       errors.value = 0;
       messages.value = ['تم الطلب تأجير المنتج بنجاح.'];
@@ -116,7 +113,7 @@ const togglePeriodPopup = () => {
                 <input v-model="period" type="number" id="period" class="shadow-sm border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" />
               </div>
 
-              <button @click="submit" type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">طلب</button>
+              <button @click="togglePeriodPopup" type="submit" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">طلب</button>
             </form>
           </div>
         </div>
