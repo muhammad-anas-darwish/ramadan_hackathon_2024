@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { watch , ref, onMounted } from "vue";
 import axios from "axios";
 import { useRoute, RouterLink } from "vue-router";
 import router from "@/router/index.js";
@@ -9,6 +9,18 @@ const route = useRoute();
 
 const messages = ref(0);
 const errors = ref(0);
+
+watch(messages, async (newQuestion, oldQuestion) => {
+  setTimeout(() => {
+    messages.value = 0;
+  }, 5000);
+});
+
+watch(errors, async (newQuestion, oldQuestion) => {
+  setTimeout(() => {
+    errors.value = 0;
+  }, 5000);
+});
 
 const userId = ref(0);
 const image = ref('');
@@ -31,6 +43,7 @@ const submit = () => {
     .then((res) => {
       errors.value = 0;
       messages.value = ['تم الطلب تأجير المنتج بنجاح.'];
+      router.push({ name: 'Home'});
     })
     .catch((error) => {
       messages.value = 0;
@@ -57,7 +70,6 @@ onMounted(() => {
       },
     })
     .then((res) => {
-      console.log(res);
       userId.value = res.data["userId"];
       image.value = `http://localhost:3000/tool/image/${res.data["image"]}`;
       title.value = res.data["title"];

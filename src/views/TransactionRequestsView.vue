@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { watch , ref, onMounted } from "vue";
 import axios from "axios";
 import { checkCookie } from '../router/authGuard.js';
 import { useRoute, RouterLink } from "vue-router";
@@ -7,8 +7,22 @@ import { useRoute, RouterLink } from "vue-router";
 const cardsData = ref([]);
 const isLoading = ref(false);
 
+
+
 const messages = ref(0);
 const errors = ref(0);
+
+watch(messages, async (newQuestion, oldQuestion) => {
+  setTimeout(() => {
+    messages.value = 0;
+  }, 5000);
+});
+
+watch(errors, async (newQuestion, oldQuestion) => {
+  setTimeout(() => {
+    errors.value = 0;
+  }, 5000);
+});
 
 const acceptRequest = (trasactionId) => {
   axios
@@ -72,6 +86,7 @@ const deleteTxn = (trasactionId) => {
     })
     .then((res) => {
       errors.value = 0;
+      getTransactions();
       messages.value = ['تم حذف العملية'];
     })
     .catch((error) => {
