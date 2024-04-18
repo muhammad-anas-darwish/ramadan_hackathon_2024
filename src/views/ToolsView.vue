@@ -16,10 +16,10 @@ const isLoading = ref(false);
 const country = ref("");
 const city = ref("");
 
-const thereAreFilters = ref(false);
+const thereAreFilters = ref(0);
 const removeFilters = () => {
   thereAreFilters.value = 0;
-  submitFilter();
+  getData();
 };
 
 const countries = ref([
@@ -490,7 +490,7 @@ const submitFilter = () => {
     })
     .then((res) => {
       cardsData.value = res["data"];
-      thereAreFilters.value = true;
+      thereAreFilters.value = 1;
       console.log(res);
     })
     .catch((error) => {
@@ -498,10 +498,9 @@ const submitFilter = () => {
     });
 };
 
-// load tools data
-onMounted(() => {
-  //isLoading.value = true;
-  axios
+const getData = () => {
+ isLoading.value = true;
+ axios
     .get(`http://localhost:3000/tool`, 
     {
       headers: {
@@ -519,6 +518,11 @@ onMounted(() => {
     .finally(() => {
       isLoading.value = false;
     });
+}
+
+// load tools data
+onMounted(() => {
+  getData();
 });
 </script>
 
