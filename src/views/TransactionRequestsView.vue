@@ -143,7 +143,7 @@ onMounted(() => {
             </RouterLink>
           </div>
           <div class="mt-2.5 mb-2.5 break-words text-xl text-gray-400">
-            متوفر: {{ card.tool.baseQuantity }}/{{ card.tool.usedQuantity }}
+            متوفر: {{ card.tool.usedQuantity }}/{{ card.tool.baseQuantity }}
           </div>
           <div class="flex items-center justify-between">
             <span class="text-3xl font-bold text-white">{{ card.tool.price }}$</span>
