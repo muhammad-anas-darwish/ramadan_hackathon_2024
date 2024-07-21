@@ -122,7 +122,7 @@ const errors = ref(0);
 // regiseter
 const submit = () => {
   axios
-    .post("http://localhost:3000/auth/signup", {
+    .post("https://ajirnicom-production.up.railway.app/auth/signup", {
       userInfo: {
         email: email.value,
         username: username.value,
@@ -183,7 +183,7 @@ const setCountryCode = (code) => {
       <div class="mb-5">
         <label for="phone_number" class="block mb-2 text-sm font-medium text-white">رقم الجوال</label>
         <div class="relative w-full">
-          <input v-model="phoneNumber" type="phone" id="phone_number" class="block p-2.5 w-full z-20 text-s rounded-lg border-s-0 border focus:ring-blue-500 bg-gray-700 border-s-gray-700 border-gray-600 placeholder-gray-400 text-white focus:border-blue-500" pattern="[0-9]{10}" placeholder="0123456789" required />
+          <input v-model="phoneNumber" type="phone" id="phone_number" class="block p-2.5 w-full z-20 text-s rounded-lg border-s-0 border focus:ring-blue-500 bg-gray-700 border-s-gray-700 border-gray-600 placeholder-gray-400 text-white focus:border-blue-500" pattern="[0-9]{10}" placeholder="مثال 0953623145" required />
         </div>
       </div>
       <div class="mb-5">

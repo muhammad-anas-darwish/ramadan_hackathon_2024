@@ -12,7 +12,7 @@ const errors = ref(0);
 
 const submit = () => {
   axios
-    .post(`http://localhost:3000/auth/reset-pass/${route.params.id}`, {
+    .post(`https://ajirnicom-production.up.railway.app/auth/reset-pass/${route.params.id}`, {
       newPassword: password.value,
     })
     .then((res) => {

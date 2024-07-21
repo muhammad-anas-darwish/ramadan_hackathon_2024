@@ -26,7 +26,7 @@ watch(errors, async (newQuestion, oldQuestion) => {
 
 const acceptRequest = (trasactionId) => {
   axios
-    .patch(`http://localhost:3000/transaction/${trasactionId}`, {
+    .patch(`https://ajirnicom-production.up.railway.app/transaction/${trasactionId}`, {
       'accepted': true,
       },{
       headers: {
@@ -53,7 +53,7 @@ const acceptRequest = (trasactionId) => {
 
 const returnItem = (trasactionId) => { 
   axios
-    .patch(`http://localhost:3000/transaction/${trasactionId}`, {
+    .patch(`https://ajirnicom-production.up.railway.app/transaction/${trasactionId}`, {
       'accepted': false,
       },{
       headers: {
@@ -79,7 +79,7 @@ const returnItem = (trasactionId) => {
 
 const deleteTxn = (trasactionId) => { 
   axios
-    .delete(`http://localhost:3000/transaction/${trasactionId}`, {
+    .delete(`https://ajirnicom-production.up.railway.app/transaction/${trasactionId}`, {
       headers: {
         "Authorization": checkCookie("Authorization"),
       },
@@ -105,7 +105,7 @@ const deleteTxn = (trasactionId) => {
 const getTransactions = () => {
   isLoading.value = true;
   axios
-    .get("http://localhost:3000/transaction", {
+    .get("https://ajirnicom-production.up.railway.app/transaction", {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: checkCookie("Authorization"),
@@ -147,7 +147,7 @@ onMounted(() => {
     <!-- Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 p-3 w-full">
       <div v-for="card in cardsData" :key="card.id" class="w-full border rounded-lg shadow bg-gray-800 border-gray-700">
-        <img class="p-4 rounded-t-lg" :src="`http://localhost:3000/tool/image/${card.tool.image}`" alt="صورة المنتج" />
+        <img class="p-4 rounded-t-lg" :src="`https://ajirnicom-production.up.railway.app/tool/image/${card.tool.image}`" alt="صورة المنتج" />
         <div class="px-5 pb-5">
           <a href="#">
             <h5 class="text-xl font-semibold tracking-tight text-gray-200">{{ card.tool.title }}</h5>

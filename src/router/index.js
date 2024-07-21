@@ -55,9 +55,9 @@ const router = createRouter({
       path: '/reset-password/:id',
       name: 'ResetPassword',
       component: ResetPasswordView,
-      beforeEnter: (to, from, next) => {
-        isGuest(to, from, next);
-      }
+      // beforeEnter: (to, from, next) => {
+      //   isGuest(to, from, next);
+      // }
     },
     {
       path: '/logout',

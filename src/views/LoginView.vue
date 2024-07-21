@@ -11,7 +11,7 @@ const errors = ref(0);
 
 const submit = () => {
   axios
-    .post("http://localhost:3000/auth/login", {
+    .post("https://ajirnicom-production.up.railway.app/auth/login", {
       email: email.value,
       password: password.value,
     })

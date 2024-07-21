@@ -37,7 +37,7 @@ const submit = () => {
     
     axios
       .post(
-        "http://localhost:3000/tool",
+        "https://ajirnicom-production.up.railway.app/tool",
         formData,
         {
           headers: {

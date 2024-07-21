@@ -10,7 +10,7 @@ const isLoading = ref(false);
 onMounted(() => {
   // isLoading.value = true;
   axios
-    .get("http://localhost:3000/transaction")
+    .get("https://ajirnicom-production.up.railway.app/transaction")
     .then((res) => {
       cardsData.value = res.data;
     })

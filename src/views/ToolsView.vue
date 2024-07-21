@@ -475,7 +475,7 @@ const toggleFilterPopup = () => {
 };
 const submitFilter = () => {
   axios
-    .get("http://localhost:3000/tool", {
+    .get("https://ajirnicom-production.up.railway.app/tool", {
       params: {
         title: title.value,
         country: country.value,
@@ -501,7 +501,7 @@ const submitFilter = () => {
 const getData = () => {
  isLoading.value = true;
  axios
-    .get(`http://localhost:3000/tool`, 
+    .get(`https://ajirnicom-production.up.railway.app/tool`, 
     {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -601,7 +601,7 @@ onMounted(() => {
     <!-- Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 p-3 w-full">
       <div v-for="card in cardsData" :key="card.id" class="w-full border rounded-lg shadow bg-gray-800 border-gray-700">
-        <img class="p-4 rounded-t-lg" :src="`http://localhost:3000/tool/image/${card.image}`" alt="صورة المنتج" />
+        <img class="p-4 rounded-t-lg" :src="`https://ajirnicom-production.up.railway.app/tool/image/${card.image}`" alt="صورة المنتج" />
         <div class="px-5 pb-5">
           <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'Tool',  params: { id: card.id } }"> 
             <h5 class="text-xl font-semibold tracking-tight text-gray-200">

@@ -10,7 +10,7 @@ const errors = ref(0);
 
 const submit = () => {
   axios
-    .post("http://localhost:3000/auth/forget-pass", {
+    .post("https://ajirnicom-production.up.railway.app/auth/forget-pass", {
       email: email.value,
     })
     .then((res) => {

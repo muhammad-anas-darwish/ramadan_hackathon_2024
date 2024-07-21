@@ -33,7 +33,7 @@ const place = ref("");
 const period = ref(1);
 
 const submit = () => {
-  axios.post('http://localhost:3000/transaction',
+  axios.post('https://ajirnicom-production.up.railway.app/transaction',
   {
         "toolId": route.params.id,
         "period": period.value
@@ -62,7 +62,7 @@ const isLoading = ref(false);
 onMounted(() => {
   // isLoading.value = true;
   axios
-    .get(`http://localhost:3000/tool/${route.params.id}`,
+    .get(`https://ajirnicom-production.up.railway.app/tool/${route.params.id}`,
     {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -71,7 +71,7 @@ onMounted(() => {
     })
     .then((res) => {
       userId.value = res.data["userId"];
-      image.value = `http://localhost:3000/tool/image/${res.data["image"]}`;
+      image.value = `https://ajirnicom-production.up.railway.app/tool/image/${res.data["image"]}`;
       title.value = res.data["title"];
       price.value = res.data["price"];
       baseQuantity.value = res.data["baseQuantity"];

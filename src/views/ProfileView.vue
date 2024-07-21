@@ -16,7 +16,7 @@ const isLoading = ref(false);
 
 onMounted(() => {
   isLoading.value = true;
-  let url = 'http://localhost:3000/user';
+  let url = 'https://ajirnicom-production.up.railway.app/user';
   if (route.params.id) {
     url = `${url}/${route.params.id}`;
   } 

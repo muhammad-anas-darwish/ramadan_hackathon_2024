@@ -19,7 +19,12 @@
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'MyProfile' }"> الملف الشخصي </RouterLink>
           </li>
           <li v-if="isAuthorize">
-            <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'UserTools' }"> أدواتي </RouterLink>
+            <select class="rounded text-white hover:text-blue-500 bg-gray-900 hover:text-white">
+              <option><RouterLink class="block py-2 px-3 rounded p-0 bg-gray-700 " :to="{ name: 'UserTools' }"> أدواتي </RouterLink></option>
+              <option><RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:text-blue-500" :to="{ name: 'UserTools' }"> أدواتي </RouterLink></option>
+              <option><RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:text-blue-500 bg-gray-700 bg-gray-700 hover:text-white md:bg-transparent" :to="{ name: 'UserTools' }"> أدواتي </RouterLink></option>
+            </select>
+            <!-- <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'UserTools' }"> أدواتي </RouterLink> -->
           </li>
           <li v-if="isAuthorize">
             <RouterLink class="block py-2 px-3 rounded md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent" :to="{ name: 'TransactionRequests' }"> طلبات التأجير </RouterLink>
@@ -48,6 +53,10 @@ const route = useRoute();
 const showNavbar = ref(true);
 function toggleNavbar() {
   showNavbar.value = !showNavbar.value;
+}
+
+function a() {
+  
 }
 
 // update user is authorize value
